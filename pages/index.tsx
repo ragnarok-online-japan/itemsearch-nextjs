@@ -1,59 +1,48 @@
 
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import useRequest from '../libs/useRequest'
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next TypeScript App</title>
-      </Head>
+const items_url = "https://ragnarokonline.0nyx.net/assets/json/items.json"
 
-      <main className={styles.main}>
+export default function Index() {
+    const { data } = useRequest({
+        url: items_url
+    })
+
+    return (
+        <div className={styles.container}>
+        <Head>
+        <title>Ragnarok Online アイテム検索UI</title>
+        </Head>
+
+        <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        Ragnarok Online アイテム検索UI
         </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        {data
+            ? Object.keys(data).map(item_id => {
+                var item = data[item_id]
+                if (item['type_card'] == true) {
+                    return (<div className={styles.card}>
+                        <h3>{item.displayname}</h3>
+                        <div>{item.description}</div>
+                        </div>
+                    )
+                }
+            })
+            : 'Now loading...'
+        }
         </div>
-      </main>
 
-      <footer className={styles.footer}>
-          Powered by{' '}
-          <img src="/0nyx_logo.svg" alt="0nyx Logo" className={styles.logo} />
-      </footer>
-    </div>
-  )
+        </main>
+
+        <footer className={styles.footer}>
+        Powered by{' '}
+        <img src="/0nyx_logo.svg" alt="0nyx Logo" className={styles.logo} />
+        </footer>
+        </div>
+    )
 }
