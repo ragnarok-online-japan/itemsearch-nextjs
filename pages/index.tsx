@@ -25,10 +25,17 @@ export default function Index() {
         {data
             ? Object.keys(data).map(item_id => {
                 var item = data[item_id]
-                if (item['type_card'] == true) {
-                    return (<div className={styles.card}>
+                if (item['is_card'] == true || item['type'] == 'カード') {
+                    var injection_type = '';
+                    if (item.injection_detail['prefix'] == true) {
+                        injection_type = 'prerix'
+                    } else {
+                        injection_type = 'suffix'
+                    }
+                    return (<div id={item_id} className={styles.card}>
                         <h3>{item.displayname}</h3>
-                        <div>{item.description}</div>
+                        <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
+                        <h5>{injection_type} : {item.injection_detail['name']}</h5>
                         </div>
                     )
                 }
