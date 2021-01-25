@@ -3,45 +3,28 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import useRequest from '../libs/useRequest'
 
-const items_url = "https://ragnarokonline.0nyx.net/assets/json/items.json"
 
 export default function Index() {
-    const { data } = useRequest({
-        url: items_url
-    })
-
     return (
         <div className={styles.container}>
         <Head>
-        <title>Ragnarok Online アイテム検索UI</title>
+        <title>Ragnarok Online のなんとか</title>
         </Head>
 
         <main className={styles.main}>
         <h1 className={styles.title}>
-        Ragnarok Online アイテム検索UI
+        Ragnarok Online のなんとか
         </h1>
 
         <div className={styles.grid}>
-        {data
-            ? Object.keys(data).map(item_id => {
-                var item = data[item_id]
-                if (item['is_card'] == true || item['type'] == 'カード') {
-                    var injection_type = '';
-                    if (item.injection_detail['prefix'] == true) {
-                        injection_type = 'prerix'
-                    } else {
-                        injection_type = 'suffix'
-                    }
-                    return (<div id={item_id} className={styles.card}>
-                        <h3>{item.displayname}</h3>
-                        <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
-                        <h5>{injection_type} : {item.injection_detail['name']}</h5>
-                        </div>
-                    )
-                }
-            })
-            : 'Now loading...'
-        }
+            <div className={styles.card}>
+                <a href="/cards"><h3>カード</h3></a>
+                <div>カード一覧です</div>
+            </div>
+            <div className={styles.card}>
+                <a href="/enchants"><h3>エンチャント</h3></a>
+                <div>エンチャント一覧です</div>
+            </div>
         </div>
 
         </main>
