@@ -16,11 +16,6 @@ export async function getServerSideProps() {
  }
 
 export default function Index({ data }: Props) {
-    /*
-    const data = useRequest({
-        url: items_url
-    })
-    */
     const router = useRouter()
     const item_id = router.query.item_id
 
