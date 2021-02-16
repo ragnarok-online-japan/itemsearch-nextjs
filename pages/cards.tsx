@@ -36,6 +36,7 @@ export default function Index() {
                         <h3>{item.displayname}</h3>
                         <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
                         <h5>{injection_type} : {item.injection_detail['name']}</h5>
+                        <a href={'/item/'+(item_id)}>LINK:ROのなんとか</a><br/>
                         <a href={'https://rotool.gungho.jp/monster/item.php?item='+(item_id)} target="_blank" rel="noopener noreferrer">LINK:RO公式 アイテム情報</a>
                         </div>
                     )
