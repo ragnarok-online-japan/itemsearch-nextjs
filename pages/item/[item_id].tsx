@@ -47,6 +47,12 @@ export default function Index() {
         </h1>
         {item ?
             <div id={item_id} className={styles.card}>
+                <Head>
+                    <meta name="twitter:title" content={"Ronntk : " + item.displayname} />
+                    <meta name="twitter:description" content={item.displayname} />
+                    <meta name="twitter:card" content="summary_large_image" />
+                    <meta name="twitter:image:src" content={image_url_prefix + item_id + ".png"} />
+                </Head>
                 <h3>{item.displayname}</h3>
                 <img src={image_url_prefix + item_id + ".png"} alt="image" />
                 <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
