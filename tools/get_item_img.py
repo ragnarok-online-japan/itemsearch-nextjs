@@ -42,7 +42,7 @@ parser.add_argument('--font',
 
 args = parser.parse_args()
 
-def download(args: dict, key: str):
+def download(args: dict, key: str, font: ImageFont):
     image_file_path = "{:s}/{:s}.png".format(args.export_path, key)
     if os.path.isfile(image_file_path) == True:
         print(key, "downloaded")
@@ -57,7 +57,6 @@ def download(args: dict, key: str):
         # 横幅、高さ
         _, height = image.size
         draw = ImageDraw.Draw(image)
-        font = ImageFont.truetype(args.font, size=10)
         draw.text((4,height-36), "(c)Gravity Co., Ltd. & LeeMyoungJin(studio DTDS) All rights reserved.\n(c)GungHo Online Entertainment, Inc. All Rights Reserved.", font=font)
         # 保存
         image.save(image_file_path, format="PNG", quality=100, optimize=True)
@@ -76,14 +75,15 @@ def main(args: dict):
     if os.path.isdir(args.export_path) == False:
         os.mkdir(args.export_path)
 
+    font = ImageFont.truetype(args.font, size=10)
     for key in items:
         item = items[key]
         if "is_card" in item and item["is_card"] == True:
             #print(key, "card")
-            download(args, key)
+            download(args, key, font)
         elif "is_enchant" in item and item["is_enchant"] == True:
             #print(key, "enchant")
-            download(args, key)
+            download(args, key, font)
 
 if __name__ == '__main__':
     main(args)
