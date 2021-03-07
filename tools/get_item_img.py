@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import io
+import traceback
 import urllib.request, urllib.parse, urllib.error
 from PIL import Image, ImageDraw, ImageFont
 
@@ -64,6 +65,7 @@ def download(args: dict, key: str):
     except urllib.error.URLError as ex:
         print(key, ex)
     except:
+        print(traceback.format_exc())
         raise
 
 def main(args: dict):
@@ -77,10 +79,11 @@ def main(args: dict):
     for key in items:
         item = items[key]
         if "is_card" in item and item["is_card"] == True:
-            print(key, "card")
+            #print(key, "card")
             download(args, key)
         elif "is_enchant" in item and item["is_enchant"] == True:
-            print(key, "enchant")
+            #print(key, "enchant")
+            download(args, key)
 
 if __name__ == '__main__':
     main(args)
