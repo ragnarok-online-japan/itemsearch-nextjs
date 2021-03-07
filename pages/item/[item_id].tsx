@@ -8,7 +8,7 @@ const image_url_prefix = "https://ragnarokonline.0nyx.net/assets/image_ro/"
 
 function Item({ error_code, item_id, item}) {
     if (error_code) {
-        return <Error statusCdoe={error_code} />
+        return <Error statusCode={error_code} />
     }
 
     var injection_type = '';
