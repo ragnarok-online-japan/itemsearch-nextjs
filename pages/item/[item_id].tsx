@@ -2,6 +2,7 @@
 import Head from '../../components/head'
 import styles from '../../styles/Home.module.css'
 import Error from 'next/error'
+import { useRouter } from 'next/router';
 
 const items_url = "https://ragnarokonline.0nyx.net/assets/json/items.json"
 const image_url_prefix = "https://ragnarokonline.0nyx.net/assets/image_ro/"
@@ -10,6 +11,8 @@ function Item({ error_code, item_id, item}) {
     if (error_code) {
         return <Error statusCode={error_code} />
     }
+    const router = useRouter();
+    item_id = router.query.item_id
 
     var injection_type = '';
     if (item['is_card'] && (item['is_card'] == true || item['type'] == 'カード')) {
