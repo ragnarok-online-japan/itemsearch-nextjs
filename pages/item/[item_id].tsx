@@ -40,7 +40,7 @@ export default function Index() {
         <Head>
             <title>Ragnarok Online のなんとか</title>
             <meta property="og:tile" content="Ragnarok Online のなんとか" />
-            <meta property="og:description" content="ROアイテム商会ページ" />
+            <meta property="og:description" content="ROアイテム紹介ページ" />
             <meta property="og:url" content={"https://ronntk.0nyx.net/item/" + item_id} />
             <meta property="og:image" content={image_url_prefix + item_id + ".png"} />
         </Head>
