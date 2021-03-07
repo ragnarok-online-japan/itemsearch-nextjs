@@ -23,32 +23,29 @@ function Item({ error_code, item_id, item}) {
     return (
         <div className={styles.container}>
 
-        {item ?
-            <main className={styles.main}>
-            <Head
-                title={"Ragnarok Online のなんとか"}
-                description={"アイテム紹介ページ"}
-                keyword={""}
-                type={"article"}
-                image={image_url_prefix + item_id + ".png"}
-                url={"https://ronntk.0nyx.net/item/" + item_id}
-            />
-            <h1 className={styles.title}>
-            Ragnarok Online のなんとか
-            </h1>
-            <div id={item_id} className={styles.card}>
-                <h3>{item.displayname}</h3>
-                <img src={image_url_prefix + item_id + ".png"} alt="image" />
-                <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
-                {injection_type ?
-                    <h5>{injection_type} : {item.injection_detail['name']}</h5>
-                    : ''
-                }
-                <a href={'https://rotool.gungho.jp/monster/item.php?item='+(item_id)} target="_blank" rel="noopener noreferrer">LINK:RO公式 アイテム情報</a>
-            </div>
-            </main>
-            : 'Now loading...'
-        }
+        <main className={styles.main}>
+        <Head
+            title={"Ragnarok Online のなんとか"}
+            description={"アイテム紹介ページ"}
+            keyword={""}
+            type={"article"}
+            image={image_url_prefix + item_id + ".png"}
+            url={"https://ronntk.0nyx.net/item/" + item_id}
+        />
+        <h1 className={styles.title}>
+        Ragnarok Online のなんとか
+        </h1>
+        <div id={item_id} className={styles.card}>
+            <h3>{item.displayname}</h3>
+            <img src={image_url_prefix + item_id + ".png"} alt="image" />
+            <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
+            {injection_type ?
+                <h5>{injection_type} : {item.injection_detail['name']}</h5>
+                : ''
+            }
+            <a href={'https://rotool.gungho.jp/monster/item.php?item='+(item_id)} target="_blank" rel="noopener noreferrer">LINK:RO公式 アイテム情報</a>
+        </div>
+        </main>
 
         <footer className={styles.footer}>
         Powered by{' '}
