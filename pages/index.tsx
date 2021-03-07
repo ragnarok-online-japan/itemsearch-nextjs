@@ -1,8 +1,6 @@
 
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import useRequest from '../libs/useRequest'
-
 
 export default function Index() {
     return (

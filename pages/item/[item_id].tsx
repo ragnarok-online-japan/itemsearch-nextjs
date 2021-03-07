@@ -6,26 +6,31 @@ import {useRouter} from 'next/router'
 
 const items_url = "https://ragnarokonline.0nyx.net/assets/json/items.json"
 
-export async function getServerSideProps() {
-    const data = await fetch(items_url).then((r) => r.json());
-    return {
-        props: {
-            data,
+export default function Index() {
+    const { data } = useRequest({
+        url: items_url
+    })
+
+    if (data) {
+        const router = useRouter()
+        var item_id = ''
+        if (typeof router.query.item_id === 'string') {
+            item_id = router.query.item_id
         }
-    }
- }
 
-export default function Index({ data }: Props) {
-    const router = useRouter()
-    const item_id = router.query.item_id
-
-    var item = data[item_id]
-    var injection_type = '';
-    if (item['is_card'] && (item['is_card'] == true || item['type'] == 'カード')) {
-        if (item.injection_detail['prefix'] == true) {
-            injection_type = 'prefix'
-        } else {
-            injection_type = 'suffix'
+        if (Object.keys(data).indexOf(item_id) === -1) {
+            // 404 NotFound
+            router.push('/404')
+            return (<div />)
+        }
+        var item = data[item_id]
+        var injection_type = '';
+        if (item['is_card'] && (item['is_card'] == true || item['type'] == 'カード')) {
+            if (item.injection_detail['prefix'] == true) {
+                injection_type = 'prefix'
+            } else {
+                injection_type = 'suffix'
+            }
         }
     }
 
@@ -39,7 +44,7 @@ export default function Index({ data }: Props) {
         <h1 className={styles.title}>
         Ragnarok Online のなんとか
         </h1>
-
+        {item ?
             <div id={item_id} className={styles.card}>
                 <h3>{item.displayname}</h3>
                 <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
@@ -49,7 +54,8 @@ export default function Index({ data }: Props) {
                 }
                 <a href={'https://rotool.gungho.jp/monster/item.php?item='+(item_id)} target="_blank" rel="noopener noreferrer">LINK:RO公式 アイテム情報</a>
             </div>
-
+            : 'Now loading...'
+        }
         </main>
 
         <footer className={styles.footer}>
