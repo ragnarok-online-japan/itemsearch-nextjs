@@ -75,8 +75,8 @@ export async function getServerSideProps (context) {
     return {
         props: {
             error_code,
-            item: item,
-            item_id: item_id
+            item_id: item_id,
+            item: item
         }
     }
 }
