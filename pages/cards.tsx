@@ -4,6 +4,7 @@ import styles from '../styles/Home.module.css'
 import useRequest from '../libs/useRequest'
 
 const items_url = "https://ragnarokonline.0nyx.net/assets/json/items.json"
+const image_url_prefix = "https://ragnarokonline.0nyx.net/assets/image_ro/"
 
 export default function Index() {
     const { data } = useRequest({
@@ -34,6 +35,7 @@ export default function Index() {
                     }
                     return (<div id={item_id} className={styles.card}>
                         <h3>{item.displayname}</h3>
+                        <img src={image_url_prefix + item_id + ".png"} alt="image" />
                         <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
                         <h5>{injection_type} : {item.injection_detail['name']}</h5>
                         <a href={'/item/'+(item_id)}>LINK:ROのなんとか</a><br/>

@@ -5,6 +5,7 @@ import useRequest from '../../libs/useRequest'
 import {useRouter} from 'next/router'
 
 const items_url = "https://ragnarokonline.0nyx.net/assets/json/items.json"
+const image_url_prefix = "https://ragnarokonline.0nyx.net/assets/image_ro/"
 
 export default function Index() {
     const { data } = useRequest({
@@ -47,6 +48,7 @@ export default function Index() {
         {item ?
             <div id={item_id} className={styles.card}>
                 <h3>{item.displayname}</h3>
+                <img src={image_url_prefix + item_id + ".png"} alt="image" />
                 <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
                 {injection_type ?
                     <h5>{injection_type} : {item.injection_detail['name']}</h5>
