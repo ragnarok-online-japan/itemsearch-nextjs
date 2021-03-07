@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+
+# pip3 install pyquery aiohttp Pillow
+
+import argparse
+import json
+import os
+import io
+import urllib.request, urllib.parse, urllib.error
+from PIL import Image, ImageDraw, ImageFont
+
+parser = argparse.ArgumentParser(description='')
+
+parser.add_argument('--import-items',
+                    action='store',
+                    nargs=1,
+                    default='./items.json',
+                    type=str,
+                    help='import items.json')
+
+parser.add_argument('--export-path',
+                    action='store',
+                    nargs=1,
+                    default='./images',
+                    type=str,
+                    help='export path')
+
+parser.add_argument('--icon-url',
+                    action='store',
+                    nargs=1,
+                    default='https://rotool.gungho.jp/icon/',
+                    type=str,
+                    help='icon url')
+
+parser.add_argument('--font',
+                    action='store',
+                    nargs=1,
+                    default='./ipaexg.ttf',
+                    type=str,
+                    help='icon url')
+
+args = parser.parse_args()
+
+def download(args: dict, key: str):
+    image_file_path = "{:s}/{:s}.png".format(args.export_path, key)
+    if os.path.isfile(image_file_path) == True:
+        print(key, "downloaded")
+        return
+
+    try:
+        with urllib.request.urlopen("{:s}/{:s}.png".format(args.icon_url, key)) as response:
+            data = response.read()
+
+        # Pillowのイメージ化
+        image = Image.open(io.BytesIO(data))
+        # 横幅、高さ
+        _, height = image.size
+        draw = ImageDraw.Draw(image)
+        font = ImageFont.truetype(args.font, size=10)
+        draw.text((4,height-36), "(c)Gravity Co., Ltd. & LeeMyoungJin(studio DTDS) All rights reserved.\n(c)GungHo Online Entertainment, Inc. All Rights Reserved.", font=font)
+        # 保存
+        image.save(image_file_path, format="PNG", quality=100, optimize=True)
+
+    except urllib.error.URLError as ex:
+        print(key, ex)
+    except:
+        raise
+
+def main(args: dict):
+    items = {}
+    with open(args.import_items, "r", encoding="utf-8") as fp:
+        items = json.load(fp)
+
+    if os.path.isdir(args.export_path) == False:
+        os.mkdir(args.export_path)
+
+    for key in items:
+        item = items[key]
+        if "is_card" in item and item["is_card"] == True:
+            print(key, "card")
+            download(args, key)
+        elif "is_enchant" in item and item["is_enchant"] == True:
+            print(key, "enchant")
+
+if __name__ == '__main__':
+    main(args)

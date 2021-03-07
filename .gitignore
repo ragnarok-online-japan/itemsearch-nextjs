@@ -37,3 +37,4 @@ package-lock.json
 
 tools/export_grf/
 tools/items.json
+tools/*.ttf
