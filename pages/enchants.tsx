@@ -1,5 +1,6 @@
 
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import useRequest from '../libs/useRequest'
 
@@ -33,9 +34,15 @@ export default function Index() {
                     } else {
                         injection_type = 'suffix'
                     }
-                    return (<div id={item_id} className={styles.card}>
+                    return (
+                        <div id={item_id} className={styles.card}>
                         <h3>{item.displayname}</h3>
-                        <img src={image_url_prefix + item_id + ".png"} alt="image" />
+                        <Image
+                        src={image_url_prefix + item_id + ".png"}
+                        alt="image"
+                        width={300}
+                        height={400}
+                        quality={100} />
                         <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
                         <h5>{injection_type} : {item.injection_detail['name']}</h5>
                         <a href={'/item/'+(item_id)}>LINK:ROのなんとか</a><br/>

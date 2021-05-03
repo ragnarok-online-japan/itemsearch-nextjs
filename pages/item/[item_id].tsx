@@ -1,5 +1,6 @@
 
 import Head from '../../components/head'
+import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
 import Error from 'next/error'
 import { useRouter } from 'next/router';
@@ -40,7 +41,12 @@ function Item({ error_code, item_id, item}) {
         </h1>
         <div id={item_id} className={styles.card}>
             <h3>{item.displayname}</h3>
-            <img src={image_url_prefix + item_id + ".png"} alt="image" />
+            <Image
+            src={image_url_prefix + item_id + ".png"}
+            alt="image"
+            width={300}
+            height={400}
+            quality={100} />
             <div dangerouslySetInnerHTML={{__html: item.description.replace(/\n/g, '<br>')}}/>
             {injection_type ?
                 <h5>{injection_type} : {item.injection_detail['name']}</h5>
