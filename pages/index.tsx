@@ -23,6 +23,10 @@ export default function Index() {
                 <a href="/enchants"><h3>エンチャント</h3></a>
                 <div>エンチャント一覧です</div>
             </div>
+            <div className={styles.card}>
+                <a href="/special_enchant"><h3>スペシャル エンチャント</h3></a>
+                <div>スペシャル エンチャント一覧です</div>
+            </div>
         </div>
 
         </main>

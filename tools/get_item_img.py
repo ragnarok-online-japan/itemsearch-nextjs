@@ -14,31 +14,31 @@ parser = argparse.ArgumentParser(description='')
 
 parser.add_argument('--import-items',
                     action='store',
-                    nargs=1,
+                    nargs='?',
                     default='./items.json',
                     type=str,
                     help='import items.json')
 
 parser.add_argument('--export-path',
                     action='store',
-                    nargs=1,
+                    nargs='?',
                     default='./images',
                     type=str,
                     help='export path')
 
 parser.add_argument('--icon-url',
                     action='store',
-                    nargs=1,
+                    nargs='?',
                     default='https://rotool.gungho.jp/icon/',
                     type=str,
                     help='icon url')
 
 parser.add_argument('--font',
                     action='store',
-                    nargs=1,
-                    default='./ipaexg.ttf',
+                    nargs='?',
+                    default='./SourceCodePro-Light.ttf',
                     type=str,
-                    help='icon url')
+                    help='Font(TTF) file path')
 
 args = parser.parse_args()
 
