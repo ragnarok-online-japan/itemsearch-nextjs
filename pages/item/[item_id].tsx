@@ -16,7 +16,7 @@ function Item({ error_code, item_id, item}) {
     item_id = router.query.item_id
 
     var injection_type = '';
-    if (item['is_card'] && (item['is_card'] == true || item['type'] == 'カード')) {
+    if (item['is_card'] == true || item['type'] == 'カード') {
         if (item.injection_detail['prefix'] == true) {
             injection_type = 'prefix'
         } else {
